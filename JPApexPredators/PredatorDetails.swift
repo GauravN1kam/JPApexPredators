@@ -4,6 +4,7 @@ import MapKit
 struct PredatorDetails: View {
     let predator: ApexPredator
     @State var position: MapCameraPosition
+    @Namespace var namespace
     var body: some View {
         GeometryReader { geo in
             ScrollView {
@@ -40,7 +41,8 @@ struct PredatorDetails: View {
                     // map
                     
                     NavigationLink {
-                        PredatorMap(position: position)
+                        PredatorMap(position: .camera(MapCamera(centerCoordinate: predator.location, distance: 1000, heading: 250, pitch: 80)))
+                            .navigationTransition(.zoom(sourceID: 1, in: namespace))
                     } label: {
                         Map(position: $position) {
                             Annotation(predator.name, coordinate: predator.location) {
@@ -67,7 +69,7 @@ struct PredatorDetails: View {
                         }
                         .clipShape(.rect(cornerRadius: 15))
                         .allowsHitTesting(false)
-                    }
+                    }.matchedTransitionSource(id: 1, in: namespace)
                         
                     
                     

@@ -33,7 +33,6 @@ struct ContentView: View {
                             // Name
                             Text(predator.name)
                                 .fontWeight(.bold)
-                            // Type
                             Text(predator.type.rawValue.capitalized)
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
